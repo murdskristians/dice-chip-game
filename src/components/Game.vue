@@ -19,6 +19,7 @@
     >
       <img src="../assets/options/1.png" alt="submit" v-on:click="addBet(1)" />
     </button>
+
     <button
       type="submit"
       style="border: 0; background: transparent"
@@ -61,54 +62,50 @@
     </button>
 
 <!-- Chips -->
-    <label
+<section>
+    <Chip
+      :value="1"
+      :totalBilance="bilance"
+      url="1.png"
       id="chip__1"
-      class="game__chip"
-      :class="{ 'game__chip--non-active': this.bilance - 1 < 0 }"
-    >
-      <input type="radio" name="test" value="1" v-model="selectedChip" />
-      <img src="../assets/chips/1.png" />
-    </label>
-    <label
+      @chip-value-driving="changeSelectedChip"
+     />
+    <Chip
+      :value="5"
+      :totalBilance="bilance"
+      url="5.png"
       id="chip__5"
-      class="game__chip"
-      :class="{ 'game__chip--non-active': this.bilance - 5 < 0 }"
-    >
-      <input type="radio" name="test" value="5" v-model="selectedChip" />
-      <img src="../assets/chips/5.png" />
-    </label>
-    <label
+      @chip-value-driving="changeSelectedChip"
+     />
+    <Chip
+      :value="25"
+      :totalBilance="bilance"
+      url="25.png"
       id="chip__25"
-      class="game__chip"
-      :class="{ 'game__chip--non-active': this.bilance - 25 < 0 }"
-    >
-      <input type="radio" name="test" value="25" v-model="selectedChip" />
-      <img src="../assets/chips/25.png" />
-    </label>
-    <label
+      @chip-value-driving="changeSelectedChip"
+     />
+    <Chip
+      :value="100"
+      :totalBilance="bilance"
+      url="100.png"
       id="chip__100"
-      class="game__chip"
-      :class="{ 'game__chip--non-active': this.bilance - 100 < 0 }"
-    >
-      <input type="radio" name="test" value="100" v-model="selectedChip" />
-      <img src="../assets/chips/100.png" />
-    </label>
-    <label
+      @chip-value-driving="changeSelectedChip"
+     />
+    <Chip
+      :value="500"
+      :totalBilance="bilance"
+      url="500.png"
       id="chip__500"
-      class="game__chip"
-      :class="{ 'game__chip--non-active': this.bilance - 500 < 0 }"
-    >
-      <input type="radio" name="test" value="500" v-model="selectedChip" />
-      <img src="../assets/chips/500.png" />
-    </label>
-    <label
+      @chip-value-driving="changeSelectedChip"
+     />
+    <Chip
+      :value="1000"
+      :totalBilance="bilance"
+      url="1000.png"
       id="chip__1000"
-      class="game__chip"
-      :class="{ 'game__chip--non-active': this.bilance - 1000 < 0 }"
-    >
-      <input type="radio" name="test" value="1000" v-model="selectedChip" />
-      <img src="../assets/chips/1000.png" />
-    </label>
+      @chip-value-driving="changeSelectedChip"
+     />
+</section> 
 
 <!-- Buttons -->
     <button
@@ -141,16 +138,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-// import Option from "./mini/Option.vue";
-// import Chip from "./mini/Chip.vue";
+import Option from './mini/Option.vue';
+import Chip from "./mini/Chip.vue";
 
-@Component
-// ({
-//   components: {
-//     Chip,
-//     Option,
-//   },
-// })
+@Component({
+  components: {
+    Chip,
+    Option,
+  },
+})
 export default class Game extends Vue {
   bilance: number = 5000;
   bet: number = 0;
@@ -182,7 +178,9 @@ export default class Game extends Vue {
       value: 0
     }
   }
-
+  changeSelectedChip( value:number ) {
+    this.selectedChip = value;
+  }
   addBet( optionNr:number ) {
     if (this.bilance - this.selectedChip < 0) return;
     if ( this.totalSelected >= 2 && this.selectedOptions[optionNr].selected === false ) return;
@@ -190,8 +188,6 @@ export default class Game extends Vue {
     this.selectedOptions[optionNr].selected = true;
     this.selectedOptions[optionNr].value += Number(this.selectedChip);
     
-    
-
     this.bilance -= Number(this.selectedChip);
     this.bet += Number(this.selectedChip);
   }
@@ -208,31 +204,31 @@ export default class Game extends Vue {
     this.bet = 0
 
     this.selectedOptions = {
-    1: {
-      selected: false,
-      value: 0
-    },
-    2: {
-      selected: false,
-      value: 0
-    },
-    3: {
-      selected: false,
-      value: 0
-    },
-    4: {
-      selected: false,
-      value: 0
-    },
-    5: {
-      selected: false,
-      value: 0
-    },
-    6: {
-      selected: false,
-      value: 0
+      1: {
+        selected: false,
+        value: 0
+      },
+      2: {
+        selected: false,
+        value: 0
+      },
+      3: {
+        selected: false,
+        value: 0
+      },
+      4: {
+        selected: false,
+        value: 0
+      },
+      5: {
+        selected: false,
+        value: 0
+      },
+      6: {
+        selected: false,
+        value: 0
+      }
     }
-  }
   }
 
   get totalSelected() {
@@ -244,22 +240,6 @@ export default class Game extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-/* HIDE RADIO */
-[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-/* IMAGE STYLES */
-[type="radio"] + img {
-  cursor: pointer;
-  width: 100%;
-}
-/* CHECKED STYLES */
-[type="radio"]:checked + img {
-  outline: 2px solid #f00;
-}
 button img {
   cursor: pointer;
   width: 100%;
@@ -316,41 +296,6 @@ button img {
     left: 71%;
     transform: skewY(22deg) rotate(-33deg);
     top: 52%;
-  }
-
-  &__chip {
-    width: 6%;
-    position: absolute;
-
-    &--non-active {
-      filter: saturate(0);
-      opacity: 0.5;
-    }
-  }
-
-  #chip__1 {
-    left: 27%;
-    top: 76%;
-  }
-  #chip__5 {
-    left: 35%;
-    top: 78%;
-  }
-  #chip__25 {
-    left: 44%;
-    top: 80%;
-  }
-  #chip__100 {
-    left: 52%;
-    top: 80%;
-  }
-  #chip__500 {
-    left: 61%;
-    top: 78%;
-  }
-  #chip__1000 {
-    left: 69%;
-    top: 76%;
   }
 
   &__button {
