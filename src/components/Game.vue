@@ -1,48 +1,214 @@
 <template>
   <div class="game">
+    <div class="info">
+      <!-- Info Panel -->
+      <p>Bilance is: {{ this.bilance }}</p>
+      <p>Selected chip: {{ this.selectedChip }}</p>
+      <p>Total bet: {{ this.bet }}</p>
+    </div>
+
     <img src="../assets/Background.png" class="game__background" />
-    <img src="../assets/options/1.png" id="option__one" class="game__option" />
-    <img src="../assets/options/2.png" id="option__two" class="game__option" />
-    <img
-      src="../assets/options/3.png"
+
+      <!-- options -->
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
+      id="option__one"
+      class="game__option"
+    >
+      <img src="../assets/options/1.png" alt="submit" v-on:click="addBet()" />
+    </button>
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
+      id="option__two"
+      class="game__option"
+    >
+      <img src="../assets/options/2.png" alt="submit" v-on:click="addBet()" />
+    </button>
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
       id="option__three"
       class="game__option"
-    />
-    <img src="../assets/options/4.png" id="option__four" class="game__option" />
-    <img src="../assets/options/5.png" id="option__five" class="game__option" />
-    <img src="../assets/options/6.png" id="option__six" class="game__option" />
+    >
+      <img src="../assets/options/3.png" alt="submit" v-on:click="addBet()" />
+    </button>
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
+      id="option__four"
+      class="game__option"
+    >
+      <img src="../assets/options/4.png" alt="submit" v-on:click="addBet()" />
+    </button>
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
+      id="option__five"
+      class="game__option"
+    >
+      <img src="../assets/options/5.png" alt="submit" v-on:click="addBet()" />
+    </button>
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
+      id="option__six"
+      class="game__option"
+    >
+      <img src="../assets/options/6.png" alt="submit" v-on:click="addBet()" />
+    </button>
 
-    <img src="../assets/chips/1.png" id="chip__1" class="game__chip" />
-    <img src="../assets/chips/5.png" id="chip__5" class="game__chip" />
-    <img src="../assets/chips/25.png" id="chip__25" class="game__chip" />
-    <img src="../assets/chips/100.png" id="chip__100" class="game__chip" />
-    <img src="../assets/chips/500.png" id="chip__500" class="game__chip" />
-    <img src="../assets/chips/1000.png" id="chip__1000" class="game__chip" />
+<!-- Chips -->
+    <label
+      id="chip__1"
+      class="game__chip"
+      :class="{ 'game__chip--non-active': this.bilance - 1 < 0 }"
+    >
+      <input type="radio" name="test" value="1" v-model="selectedChip" />
+      <img src="../assets/chips/1.png" />
+    </label>
+    <label
+      id="chip__5"
+      class="game__chip"
+      :class="{ 'game__chip--non-active': this.bilance - 5 < 0 }"
+    >
+      <input type="radio" name="test" value="5" v-model="selectedChip" />
+      <img src="../assets/chips/5.png" />
+    </label>
+    <label
+      id="chip__25"
+      class="game__chip"
+      :class="{ 'game__chip--non-active': this.bilance - 25 < 0 }"
+    >
+      <input type="radio" name="test" value="25" v-model="selectedChip" />
+      <img src="../assets/chips/25.png" />
+    </label>
+    <label
+      id="chip__100"
+      class="game__chip"
+      :class="{ 'game__chip--non-active': this.bilance - 100 < 0 }"
+    >
+      <input type="radio" name="test" value="100" v-model="selectedChip" />
+      <img src="../assets/chips/100.png" />
+    </label>
+    <label
+      id="chip__500"
+      class="game__chip"
+      :class="{ 'game__chip--non-active': this.bilance - 500 < 0 }"
+    >
+      <input type="radio" name="test" value="500" v-model="selectedChip" />
+      <img src="../assets/chips/500.png" />
+    </label>
+    <label
+      id="chip__1000"
+      class="game__chip"
+      :class="{ 'game__chip--non-active': this.bilance - 1000 < 0 }"
+    >
+      <input type="radio" name="test" value="1000" v-model="selectedChip" />
+      <img src="../assets/chips/1000.png" />
+    </label>
 
-    <img
-      src="../assets/buttons/Repeat.png"
+<!-- Buttons -->
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
       id="button__repeat"
       class="game__button"
-    />
-    <img
-      src="../assets/buttons/Undo.png"
+    >
+      <img
+        src="../assets/buttons/Repeat.png"
+        alt="submit"
+        v-on:click="repeatBet"
+      />
+    </button>
+
+    <button
+      type="submit"
+      style="border: 0; background: transparent"
       id="button__undo"
       class="game__button"
-    />
+    >
+      <img
+        src="../assets/buttons/Undo.png"
+        alt="submit"
+        v-on:click="undoBet"
+      />
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+// import Option from "./mini/Option.vue";
+// import Chip from "./mini/Chip.vue";
 
 @Component
+// ({
+//   components: {
+//     Chip,
+//     Option,
+//   },
+// })
 export default class Game extends Vue {
-  @Prop() private msg!: string;
+  bilance: number = 5000;
+  bet: number = 0;
+
+  selectedChip: number = 0;
+
+  addBet() {
+    if (this.bilance - this.selectedChip < 0) return;
+    console.log(this.selectedChip);
+
+    this.bilance -= Number(this.selectedChip);
+    this.bet += Number(this.selectedChip);
+  }
+
+  repeatBet() {
+    if (this.bilance - this.bet < 0) return;
+
+    this.bilance -= this.bet;
+    this.bet *= 2
+  }
+
+  undoBet() {
+    this.bilance += this.bet
+    this.bet = 0
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+/* HIDE RADIO */
+[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+/* IMAGE STYLES */
+[type="radio"] + img {
+  cursor: pointer;
+  width: 100%;
+}
+/* CHECKED STYLES */
+[type="radio"]:checked + img {
+  outline: 2px solid #f00;
+}
+button img {
+  cursor: pointer;
+  width: 100%;
+}
+
+.info {
+  background-color: black;
+  font-size: 5em;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
 .game {
   &__background {
     position: absolute;
@@ -84,13 +250,18 @@ export default class Game extends Vue {
   }
   #option__six {
     left: 71%;
-    transform: skewY(22deg) rotate(-37deg);
+    transform: skewY(22deg) rotate(-33deg);
     top: 52%;
   }
 
   &__chip {
     width: 6%;
     position: absolute;
+
+    &--non-active {
+      filter: saturate(0);
+      opacity: 0.5;
+    }
   }
 
   #chip__1 {
