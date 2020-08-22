@@ -10,57 +10,45 @@
 
     <img src="../assets/Background.png" class="game__background" />
 
-      <!-- options -->
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+  <!-- options -->
+  <section>
+    <Option
+      :value="1"
+      url="1.png"
       id="option__one"
-      class="game__option"
-    >
-      <img src="../assets/options/1.png" alt="submit" v-on:click="addBet(1)" />
-    </button>
-
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+      @option-value-driving="addBet(1)"
+     />
+    <Option
+      :value="2"
+      url="2.png"
       id="option__two"
-      class="game__option"
-    >
-      <img src="../assets/options/2.png" alt="submit" v-on:click="addBet(2)" />
-    </button>
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+      @option-value-driving="addBet(2)"
+     />
+    <Option
+      :value="3"
+      url="3.png"
       id="option__three"
-      class="game__option"
-    >
-      <img src="../assets/options/3.png" alt="submit" v-on:click="addBet(3)" />
-    </button>
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+      @option-value-driving="addBet(3)"
+     />
+    <Option
+      :value="4"
+      url="4.png"
       id="option__four"
-      class="game__option"
-    >
-      <img src="../assets/options/4.png" alt="submit" v-on:click="addBet(4)" />
-    </button>
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+      @option-value-driving="addBet(4)"
+     />
+    <Option
+      :value="5"
+      url="5.png"
       id="option__five"
-      class="game__option"
-    >
-      <img src="../assets/options/5.png" alt="submit" v-on:click="addBet(5)" />
-    </button>
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+      @option-value-driving="addBet(5)"
+     />
+    <Option
+      :value="6"
+      url="6.png"
       id="option__six"
-      class="game__option"
-    >
-      <img src="../assets/options/6.png" alt="submit" v-on:click="addBet(6)" />
-    </button>
-
+      @option-value-driving="addBet(6)"
+     />
+  </section>
 <!-- Chips -->
 <section>
     <Chip
@@ -260,44 +248,7 @@ button img {
     height: 100%;
     z-index: -1;
   }
-
-  &__option {
-    filter: brightness(1);
-    position: absolute;
-    width: 4%;
-  }
-
-  #option__one {
-    left: 25%;
-    transform: skewY(-17deg) rotate(32deg);
-    top: 52%;
-  }
-  #option__two {
-    left: 34%;
-    transform: skewY(-14deg) rotate(22deg);
-    top: 55%;
-  }
-  #option__three {
-    left: 44%;
-    transform: skewY(-6deg) rotate(8deg);
-    top: 56%;
-  }
-  #option__four {
-    left: 52%;
-    transform: skewY(12deg) rotate(-16deg);
-    top: 56%;
-  }
-  #option__five {
-    left: 62%;
-    transform: skewY(18deg) rotate(-26deg);
-    top: 55%;
-  }
-  #option__six {
-    left: 71%;
-    transform: skewY(22deg) rotate(-33deg);
-    top: 52%;
-  }
-
+  
   &__button {
     top: 71%;
     width: 6%;
