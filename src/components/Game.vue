@@ -96,31 +96,16 @@
 </section> 
 
 <!-- Buttons -->
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+    <ActionButton 
+      url="Repeat.png"
       id="button__repeat"
-      class="game__button"
-    >
-      <img
-        src="../assets/buttons/Repeat.png"
-        alt="submit"
-        v-on:click="repeatBet"
-      />
-    </button>
-
-    <button
-      type="submit"
-      style="border: 0; background: transparent"
+      @button-pressed="repeatBet"
+    />
+    <ActionButton 
+      url="Undo.png"
       id="button__undo"
-      class="game__button"
-    >
-      <img
-        src="../assets/buttons/Undo.png"
-        alt="submit"
-        v-on:click="undoBet"
-      />
-    </button>
+      @button-pressed="undoBet"
+    />
   </div>
 </template>
 
@@ -128,11 +113,13 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Option from './mini/Option.vue';
 import Chip from "./mini/Chip.vue";
+import ActionButton from "./mini/Button.vue";
 
 @Component({
   components: {
     Chip,
     Option,
+    ActionButton,
   },
 })
 export default class Game extends Vue {
@@ -228,14 +215,9 @@ export default class Game extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-button img {
-  cursor: pointer;
-  width: 100%;
-}
-
 .info {
   background-color: black;
-  font-size: 5em;
+  font-size: 2.5em;
   color: white;
   display: flex;
   flex-direction: column;
@@ -247,19 +229,6 @@ button img {
     width: 100%;
     height: 100%;
     z-index: -1;
-  }
-  
-  &__button {
-    top: 71%;
-    width: 6%;
-    position: absolute;
-  }
-
-  #button__repeat {
-    left: 19%;
-  }
-  #button__undo {
-    left: 77%;
   }
 }
 </style>

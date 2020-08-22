@@ -34,7 +34,6 @@ export default class Chip extends Vue {
 
   emitValue():void {
     this.$emit('chip-value-driving', this.chipValue );
-    console.log(this.chipValue);
   }
   get validate() {
 	  return this.totalBilance - this.chipValue < 0

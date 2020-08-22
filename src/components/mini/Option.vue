@@ -30,7 +30,6 @@ export default class Option extends Vue {
 
   emitValue():void {
     this.$emit('option-value-driving', this.optionValue );
-    console.log(this.optionValue);
   }
 }
 </script>
