@@ -16,7 +16,7 @@
 // import { Component, Prop, Vue } from "vue-property-decorator";
 
 // @Component
-// export default class Chip extends Vue {
+// export default class Option extends Vue {
 //   @Prop()
 //   value: number | null = null;
 
