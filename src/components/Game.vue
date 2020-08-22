@@ -5,6 +5,7 @@
       <p>Bilance is: {{ this.bilance }}</p>
       <p>Selected chip: {{ this.selectedChip }}</p>
       <p>Total bet: {{ this.bet }}</p>
+      <p>Selected bet: {{ this.totalSelected }}</p>
     </div>
 
     <img src="../assets/Background.png" class="game__background" />
@@ -16,7 +17,7 @@
       id="option__one"
       class="game__option"
     >
-      <img src="../assets/options/1.png" alt="submit" v-on:click="addBet()" />
+      <img src="../assets/options/1.png" alt="submit" v-on:click="addBet(1)" />
     </button>
     <button
       type="submit"
@@ -24,7 +25,7 @@
       id="option__two"
       class="game__option"
     >
-      <img src="../assets/options/2.png" alt="submit" v-on:click="addBet()" />
+      <img src="../assets/options/2.png" alt="submit" v-on:click="addBet(2)" />
     </button>
     <button
       type="submit"
@@ -32,7 +33,7 @@
       id="option__three"
       class="game__option"
     >
-      <img src="../assets/options/3.png" alt="submit" v-on:click="addBet()" />
+      <img src="../assets/options/3.png" alt="submit" v-on:click="addBet(3)" />
     </button>
     <button
       type="submit"
@@ -40,7 +41,7 @@
       id="option__four"
       class="game__option"
     >
-      <img src="../assets/options/4.png" alt="submit" v-on:click="addBet()" />
+      <img src="../assets/options/4.png" alt="submit" v-on:click="addBet(4)" />
     </button>
     <button
       type="submit"
@@ -48,7 +49,7 @@
       id="option__five"
       class="game__option"
     >
-      <img src="../assets/options/5.png" alt="submit" v-on:click="addBet()" />
+      <img src="../assets/options/5.png" alt="submit" v-on:click="addBet(5)" />
     </button>
     <button
       type="submit"
@@ -56,7 +57,7 @@
       id="option__six"
       class="game__option"
     >
-      <img src="../assets/options/6.png" alt="submit" v-on:click="addBet()" />
+      <img src="../assets/options/6.png" alt="submit" v-on:click="addBet(6)" />
     </button>
 
 <!-- Chips -->
@@ -153,12 +154,43 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class Game extends Vue {
   bilance: number = 5000;
   bet: number = 0;
-
   selectedChip: number = 0;
 
-  addBet() {
+  selectedOptions:any = {
+    1: {
+      selected: false,
+      value: 0
+    },
+    2: {
+      selected: false,
+      value: 0
+    },
+    3: {
+      selected: false,
+      value: 0
+    },
+    4: {
+      selected: false,
+      value: 0
+    },
+    5: {
+      selected: false,
+      value: 0
+    },
+    6: {
+      selected: false,
+      value: 0
+    }
+  }
+
+  addBet( optionNr:number ) {
     if (this.bilance - this.selectedChip < 0) return;
-    console.log(this.selectedChip);
+    if ( this.totalSelected >= 2 && this.selectedOptions[optionNr].selected === false ) return;
+
+    this.selectedOptions[optionNr].selected = true;
+    this.selectedOptions[optionNr].value += Number(this.selectedChip);
+    
+    
 
     this.bilance -= Number(this.selectedChip);
     this.bet += Number(this.selectedChip);
@@ -174,6 +206,38 @@ export default class Game extends Vue {
   undoBet() {
     this.bilance += this.bet
     this.bet = 0
+
+    this.selectedOptions = {
+    1: {
+      selected: false,
+      value: 0
+    },
+    2: {
+      selected: false,
+      value: 0
+    },
+    3: {
+      selected: false,
+      value: 0
+    },
+    4: {
+      selected: false,
+      value: 0
+    },
+    5: {
+      selected: false,
+      value: 0
+    },
+    6: {
+      selected: false,
+      value: 0
+    }
+  }
+  }
+
+  get totalSelected() {
+    let num = Object.values(this.selectedOptions).filter( (a:any)=> a.selected == true)
+    return num.length
   }
 }
 </script>
