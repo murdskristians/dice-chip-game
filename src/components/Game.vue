@@ -5,8 +5,7 @@
       <!-- Info Panel for testing purposes-->
       <p>Bilance is: {{ this.bilance }}</p>
       <p>Selected chip: {{ this.selectedChip }}</p>
-      <p>Total bet: {{ this.bet }}</p>
-      <p>Selected bet: {{ this.totalSelected }}</p>
+      <p>Total bet: {{ this.bet }}</p> 
     </div>
 
     <img src="../assets/Background.png" class="game__background" />
