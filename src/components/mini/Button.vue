@@ -41,7 +41,7 @@ export default class Option extends Vue {
     width: 100%;
 
     &:hover {
-        animation: select-chip 0.3s;
+        animation: select-chip 0.5s ease;
     }
   }
   #button__repeat {
@@ -54,6 +54,7 @@ export default class Option extends Vue {
   @keyframes select-chip {
     0% {
       width: 100%;
+      filter: brightness(10%);
     }
     10% {
       opacity: 1;
@@ -69,6 +70,7 @@ export default class Option extends Vue {
       width: 100%;
       opacity: 1;
       transition-property: left, top, opacity;
+      filter: brightness(100%);
     }
   }
 }

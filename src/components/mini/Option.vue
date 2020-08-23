@@ -40,7 +40,7 @@ export default class Option extends Vue {
 
   get optionSelected() {
     return this.isSelected;
-  } 
+  }
 }
 </script>
 <style scoped lang="scss">
@@ -86,9 +86,24 @@ export default class Option extends Vue {
     top: 52%;
   }
   &__option--active {
-    background: url(../../assets/chips/chips.png)  no-repeat center;
-    background-color: green;
-    background-size: 100%;
+    animation: select-option 1s ease;
+    animation-fill-mode: forwards;
+  }
+  @keyframes select-option {
+    0% {
+      background: url(../../assets/chips/chips.png) no-repeat center;
+      background-color: green;
+      background-size: 100%;
+    }
+    50% {
+      background-color: transparent;
+      background-size: 50%;
+    }
+    100% {
+      background: url(../../assets/chips/chips.png) no-repeat center;
+      background-color: green;
+      background-size: 100%;
+    }
   }
 }
 </style>

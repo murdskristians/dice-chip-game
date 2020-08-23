@@ -3,7 +3,7 @@
   <div class="game">
     <div class="info">
       <!-- Info Panel for testing purposes-->
-      <p>Bilance is: {{ this.bilance }}</p>
+      <p>balance is: {{ this.balance }}</p>
       <p>Selected chip: {{ this.selectedChip }}</p>
       <p>Total bet: {{ this.bet }}</p> 
     </div>
@@ -59,42 +59,42 @@
 <section>
     <Chip
       :value="1"
-      :totalBilance="bilance"
+      :totalbalance="balance"
       url="1.png"
       id="chip__1"
       @chip-value-driving="changeSelectedChip"
      />
     <Chip
       :value="5"
-      :totalBilance="bilance"
+      :totalbalance="balance"
       url="5.png"
       id="chip__5"
       @chip-value-driving="changeSelectedChip"
      />
     <Chip
       :value="25"
-      :totalBilance="bilance"
+      :totalbalance="balance"
       url="25.png"
       id="chip__25"
       @chip-value-driving="changeSelectedChip"
      />
     <Chip
       :value="100"
-      :totalBilance="bilance"
+      :totalbalance="balance"
       url="100.png"
       id="chip__100"
       @chip-value-driving="changeSelectedChip"
      />
     <Chip
       :value="500"
-      :totalBilance="bilance"
+      :totalbalance="balance"
       url="500.png"
       id="chip__500"
       @chip-value-driving="changeSelectedChip"
      />
     <Chip
       :value="1000"
-      :totalBilance="bilance"
+      :totalbalance="balance"
       url="1000.png"
       id="chip__1000"
       @chip-value-driving="changeSelectedChip"
@@ -129,7 +129,7 @@ import ActionButton from "./mini/Button.vue";
   },
 })
 export default class Game extends Vue {
-  bilance: number = 5000;
+  balance: number = 5000;
   bet: number = 0;
   selectedChip: number = 0;
 
@@ -159,31 +159,31 @@ export default class Game extends Vue {
       value: 0
     }
   }
-  changeSelectedChip( value:number ) {
+  changeSelectedChip( value:number ):void  {
     this.selectedChip = value;
   }
-  addBet( optionNr:number ) {
+  addBet( optionNr:number ):void  {
     //If not enough money to bet
-    if (this.bilance - this.selectedChip < 0) return;
+    if (this.balance - this.selectedChip < 0) return;
     //If 2 options are already selected and want to select third
     if ( this.totalSelected >= 2 && this.selectedOptions[optionNr].selected === false ) return;
 
     this.selectedOptions[optionNr].selected = true;
     this.selectedOptions[optionNr].value += Number(this.selectedChip);
     
-    this.bilance -= Number(this.selectedChip);
+    this.balance -= Number(this.selectedChip);
     this.bet += Number(this.selectedChip);
   }
 
-  repeatBet() {
-    if (this.bilance - this.bet < 0) return;
+  repeatBet():void {
+    if (this.balance - this.bet < 0) return;
 
-    this.bilance -= this.bet;
+    this.balance -= this.bet;
     this.bet *= 2
   }
 
-  undoBet() {
-    this.bilance += this.bet
+  undoBet():void {
+    this.balance += this.bet
     this.bet = 0
 
     this.selectedOptions = {
@@ -214,13 +214,9 @@ export default class Game extends Vue {
     }
   }
 
-  get totalSelected() {
+  get totalSelected():number {
     let num = Object.values(this.selectedOptions).filter( (a:any)=> a.selected == true)
     return num.length
-  }
-
-  get validate() {
-    return this.selectedOptions[6].selected
   }
 }
 </script>

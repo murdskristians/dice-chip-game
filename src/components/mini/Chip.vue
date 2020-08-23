@@ -20,13 +20,13 @@ export default class Chip extends Vue {
   @Prop()
   value!: number;
   @Prop()
-  totalBilance!: number;
+  totalbalance!: number;
   @Prop()
   url!: string;
   @Prop()
   id!: string;
 
-  bilance: number = this.totalBilance;
+  balance: number = this.totalbalance;
   chipId: string = this.id;
   imgName: string = this.url;
   chipValue: number = this.value;
@@ -35,7 +35,7 @@ export default class Chip extends Vue {
     this.$emit("chip-value-driving", this.chipValue);
   }
   get validate() {
-    return this.totalBilance - this.chipValue < 0;
+    return this.totalbalance - this.chipValue < 0;
   }
 }
 </script>
@@ -54,7 +54,7 @@ export default class Chip extends Vue {
 }
 /* CHECKED STYLES */
 [type="radio"]:checked + img {
-  animation: select-chip 1s;
+  animation: select-chip 1s ease-out;
 }
 .game {
   &__chip {
@@ -111,6 +111,5 @@ export default class Chip extends Vue {
       transition-property: left, top, opacity;
     }
   }
-
 }
 </style>
