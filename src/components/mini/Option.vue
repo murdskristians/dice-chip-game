@@ -7,7 +7,11 @@
       class="game__option"
       @click="emitValue"
     >
-      <img :src="require('@/assets/options/' + imgName + '')" alt="submit" />
+      <img
+        :src="require('@/assets/options/' + imgName + '')"
+        alt="submit"
+        :class="{ 'game__option--active': optionSelected }"
+      />
     </button>
   </div>
 </template>
@@ -23,27 +27,32 @@ export default class Option extends Vue {
   url!: string;
   @Prop()
   id!: string;
+  @Prop()
+  isSelected!: boolean;
 
-  imgName:string  = this.url;
+  imgName: string = this.url;
   optionId: string = this.id;
   optionValue: number = this.value;
 
-  emitValue():void {
-    this.$emit('option-value-driving', this.optionValue );
+  emitValue(): void {
+    this.$emit("option-value-driving", this.optionValue);
   }
+
+  get optionSelected() {
+    return this.isSelected;
+  } 
 }
 </script>
 <style scoped lang="scss">
 .game {
-
   &__option {
     filter: brightness(1);
     position: absolute;
     width: 4%;
 
     & > img {
-    width: 100%
-  }
+      width: 100%;
+    }
   }
 
   #option__one {
@@ -75,6 +84,11 @@ export default class Option extends Vue {
     left: 71%;
     transform: skewY(22deg) rotate(-33deg);
     top: 52%;
+  }
+  &__option--active {
+    background: url(../../assets/chips/chips.png)  no-repeat center;
+    background-color: green;
+    background-size: 100%;
   }
 }
 </style>

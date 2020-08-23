@@ -1,7 +1,8 @@
 <template>
+  <!-- Game is made by Kristians Murds -->
   <div class="game">
     <div class="info">
-      <!-- Info Panel -->
+      <!-- Info Panel for testing purposes-->
       <p>Bilance is: {{ this.bilance }}</p>
       <p>Selected chip: {{ this.selectedChip }}</p>
       <p>Total bet: {{ this.bet }}</p>
@@ -17,36 +18,42 @@
       url="1.png"
       id="option__one"
       @option-value-driving="addBet(1)"
+      :isSelected="selectedOptions[1].selected"
      />
     <Option
       :value="2"
       url="2.png"
       id="option__two"
       @option-value-driving="addBet(2)"
+      :isSelected="selectedOptions[2].selected"
      />
     <Option
       :value="3"
       url="3.png"
       id="option__three"
       @option-value-driving="addBet(3)"
+      :isSelected="selectedOptions[3].selected"
      />
     <Option
       :value="4"
       url="4.png"
       id="option__four"
       @option-value-driving="addBet(4)"
+      :isSelected="selectedOptions[4].selected"
      />
     <Option
       :value="5"
       url="5.png"
       id="option__five"
       @option-value-driving="addBet(5)"
+      :isSelected="selectedOptions[5].selected"
      />
     <Option
       :value="6"
       url="6.png"
       id="option__six"
       @option-value-driving="addBet(6)"
+      :isSelected="selectedOptions[6].selected"
      />
   </section>
 <!-- Chips -->
@@ -157,7 +164,9 @@ export default class Game extends Vue {
     this.selectedChip = value;
   }
   addBet( optionNr:number ) {
+    //If not enough money to bet
     if (this.bilance - this.selectedChip < 0) return;
+    //If 2 options are already selected and want to select third
     if ( this.totalSelected >= 2 && this.selectedOptions[optionNr].selected === false ) return;
 
     this.selectedOptions[optionNr].selected = true;
@@ -209,6 +218,10 @@ export default class Game extends Vue {
   get totalSelected() {
     let num = Object.values(this.selectedOptions).filter( (a:any)=> a.selected == true)
     return num.length
+  }
+
+  get validate() {
+    return this.selectedOptions[6].selected
   }
 }
 </script>

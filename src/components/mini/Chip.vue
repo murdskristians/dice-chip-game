@@ -3,8 +3,8 @@
     <label
       :id="chipId"
       class="game__chip"
-	  @click="emitValue"
-	  :class="{ 'game__chip--non-active': validate }"
+      @click="emitValue"
+      :class="{ 'game__chip--non-active': validate }"
     >
       <input type="radio" name="test" :value="chipValue" />
       <img :src="require('@/assets/chips/' + imgName + '')" />
@@ -26,17 +26,16 @@ export default class Chip extends Vue {
   @Prop()
   id!: string;
 
-
   bilance: number = this.totalBilance;
   chipId: string = this.id;
-  imgName:string  = this.url;
+  imgName: string = this.url;
   chipValue: number = this.value;
 
-  emitValue():void {
-    this.$emit('chip-value-driving', this.chipValue );
+  emitValue(): void {
+    this.$emit("chip-value-driving", this.chipValue);
   }
   get validate() {
-	  return this.totalBilance - this.chipValue < 0
+    return this.totalBilance - this.chipValue < 0;
   }
 }
 </script>
@@ -55,7 +54,7 @@ export default class Chip extends Vue {
 }
 /* CHECKED STYLES */
 [type="radio"]:checked + img {
-  outline: 2px solid #f00;
+  animation: select-chip 1s;
 }
 .game {
   &__chip {
@@ -92,5 +91,26 @@ export default class Chip extends Vue {
     left: 69%;
     top: 76%;
   }
+  @keyframes select-chip {
+    0% {
+      width: 100%;
+    }
+    10% {
+      opacity: 1;
+      transition-property: left, top, opacity;
+      transition-duration: 0.7s, 0.7s, 0.15s;
+      transition-timing-function: ease;
+    }
+    50% {
+      width: 125%;
+	  opacity: 0.5;
+    }
+    100% {
+      width: 100%;
+      opacity: 1;
+      transition-property: left, top, opacity;
+    }
+  }
+
 }
 </style>

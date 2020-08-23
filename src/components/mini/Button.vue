@@ -39,12 +39,37 @@ export default class Option extends Vue {
   img {
     cursor: pointer;
     width: 100%;
+
+    &:hover {
+        animation: select-chip 0.3s;
+    }
   }
   #button__repeat {
     left: 19%;
   }
   #button__undo {
     left: 77%;
+  }
+
+  @keyframes select-chip {
+    0% {
+      width: 100%;
+    }
+    10% {
+      opacity: 1;
+      transition-property: left, top, opacity;
+      transition-duration: 0.7s, 0.7s, 0.15s;
+      transition-timing-function: ease;
+    }
+    50% {
+      width: 120%;
+	  opacity: 0.5;
+    }
+    100% {
+      width: 100%;
+      opacity: 1;
+      transition-property: left, top, opacity;
+    }
   }
 }
 </style>
